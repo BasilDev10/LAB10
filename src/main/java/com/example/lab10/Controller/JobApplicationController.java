@@ -30,6 +30,16 @@ public class JobApplicationController {
         else return ResponseEntity.status(400).body(new ApiResponse(result));
     }
 
+    @PostMapping("/apply-job/{userId}/{JobPostId}")
+    public ResponseEntity applayJob(@PathVariable Integer userId , @PathVariable Integer JobPostId){
+
+        String result = jobApplicationService.applyJob(userId ,JobPostId);
+
+        if (result.equals("success")) return ResponseEntity.status(201).body(new ApiResponse("Job Applied"));
+        else return ResponseEntity.status(400).body(new ApiResponse(result));
+
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity updateJobApplication(@PathVariable Integer id , @RequestBody @Valid JobApplication jobApplication , Errors errors){
         if(errors.hasErrors()) return ResponseEntity.status(400).body(new ApiResponse(errors.getFieldError().getDefaultMessage()));

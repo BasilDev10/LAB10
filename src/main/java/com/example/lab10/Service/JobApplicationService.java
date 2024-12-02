@@ -28,7 +28,18 @@ public class JobApplicationService {
         jobApplicationRepository.save(jobApplication);
         return "success";
     }
+    public String applyJob(Integer userId ,Integer jobPostId){
+        if(userService.getUserById(userId) == null) return "User not found";
+        if (jobPostService.getJobPostById(jobPostId) == null) return "Job Post not found";
 
+        JobApplication jobApplication = new JobApplication();
+
+        jobApplication.setUserId(userId);
+        jobApplication.setJobPostId(jobPostId);
+
+        jobApplicationRepository.save(jobApplication);
+        return "success";
+    }
     public String updateJobApplication(Integer id,JobApplication jobApplication){
         if(userService.getUserById(jobApplication.getUserId()) == null) return "User not found";
         if (jobPostService.getJobPostById(jobApplication.getJobPostId()) == null) return "Job Post not found";
